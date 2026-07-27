@@ -1,5 +1,2 @@
-public protocol DocumentBodyContext {
-    associatedtype DocumentBodyContent: DocumentBodyContext
-
-    var body: DocumentBodyContent { get }
-}
+/// A context that can appear in the body of a document
+public protocol DocumentBodyContext: Context {}

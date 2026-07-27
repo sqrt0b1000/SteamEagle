@@ -36,26 +36,29 @@ let package = Package(
             name: "SteamEagle",
             dependencies: [
                 "Contexts",
-                "Builder",
                 "HtmlTags",
             ],
         ),
 
-        .target(
-            name: "Contexts",
-        ),
-        .target(
-            name: "Builder",
-            dependencies: [
-                "Contexts"
-            ],
-        ),
+        // Declaration of the different html tags to be used
         .target(
             name: "HtmlTags",
             dependencies: [
                 "Contexts",
-                "Builder",
+                "Renderer",
             ],
+        ),
+
+        // Declarations of different contexts of an webpage
+        .target(
+            name: "Contexts",
+            dependencies: [],
+        ),
+
+        // Foundation allowing perfomative builds of whole pages
+        .target(
+            name: "Renderer",
+            dependencies: [],
         ),
 
         //
@@ -76,8 +79,8 @@ package.targets += [
             .product(name: "Benchmark", package: "package-benchmark"),
             "SteamEagle",
             "Contexts",
-            "Builder",
             "HtmlTags",
+            "Renderer",
             .product(name: "HTMLKit", package: "htmlkit"),
         ],
         path: "Benchmarks/BenchmarkHTMLKit",
@@ -86,4 +89,3 @@ package.targets += [
         ]
     )
 ]
-

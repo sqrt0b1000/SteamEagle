@@ -4,22 +4,25 @@ import Benchmark
 import Contexts
 import Foundation
 import HTMLKit
+import Renderer
 import SteamEagle
 
 let benchmarks: @Sendable () -> Void = {
 
-    struct TestR: Rendable {
-        let x: String
-
-        @Contexts.ContentBuilder
-        var body: some Rendable {
-            Content.tag(
-                Tag.h1,
-                EmptyContent.test(
-                    String(repeating: x, count: 50)
-                ))
+    /*
+        struct TestR: Rendable {
+            let x: String
+    
+            @RendableBuilder
+            var body: some Rendable {
+                Content.tag(
+                    Tag.h1,
+                    SimpleContent.test(
+                        String(repeating: x, count: 50)
+                    ))
+            }
         }
-    }
+        */
 
     struct TestHTMLKit: View {
         let x: String
@@ -38,35 +41,33 @@ let benchmarks: @Sendable () -> Void = {
 
     let simpleRenderer = SimpleRenderer()
     let arrayRenderer = ArrayRenderer()
-
-    Benchmark("SimpleRenderer") { benchmark in
-
-        benchmark.startMeasurement()
-
-        for _ in benchmark.scaledIterations {
-
-            for x in 0...10000 {
-                simpleRenderer.render(TestR(x: data[x]))
-                blackHole(simpleRenderer.printing())
+    /*
+        Benchmark("SimpleRenderer") { benchmark in
+    
+            benchmark.startMeasurement()
+    
+            for _ in benchmark.scaledIterations {
+    
+                for x in 0...10000 {
+                    blackHole(simpleRenderer.render(TestR(x: data[x])))
+                }
             }
+    
+            benchmark.stopMeasurement()
         }
-
-        benchmark.stopMeasurement()
-    }
-
-    Benchmark("ArrayRenderer") { benchmark in
-        benchmark.startMeasurement()
-
-        for _ in benchmark.scaledIterations {
-
-            for x in 0...10000 {
-                arrayRenderer.render(TestR(x: data[x]))
-                blackHole(arrayRenderer.printing())
+    
+        Benchmark("ArrayRenderer") { benchmark in
+            benchmark.startMeasurement()
+    
+            for _ in benchmark.scaledIterations {
+    
+                for x in 0...10000 {
+                    blackHole(arrayRenderer.render(TestR(x: data[x])))
+                }
             }
-        }
-
-        benchmark.stopMeasurement()
-    }
+    
+            benchmark.stopMeasurement()
+        }*/
 
     let htmlkitRenderer = HTMLKit.Renderer()
 
